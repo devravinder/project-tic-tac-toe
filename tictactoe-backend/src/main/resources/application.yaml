@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: tictactoe-backend
+
+  datasource:
+    url: jdbc:sqlite:tictactoe.db
+    driver-class-name: org.sqlite.JDBC
+
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+game:
+  idle-timeout-minutes: 5
+  disconnect-timeout-seconds: 30
+  disconnect-strike-seconds: 10
+  max-disconnect-strikes: 3
+
