@@ -76,6 +76,16 @@
 
 ### 📝 To Do
 
+#### a52e | Show Waiting Game animation
+
+- Id: a52e
+- lastModifiedDate: 2026-06-16 06:16:19:796
+- Title: Show Waiting Game animation
+- Status: 📝 To Do
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 06:16:30:153
+- dueDate: 2026-06-16 05:30:00:000
+
 #### 165b | Resign & Draw
 
 - Id: 165b
@@ -108,6 +118,16 @@
 - #ui
 - #feature
 
+#### 31bb | Network Disconnection / Heart Beat
+
+- Id: 31bb
+- lastModifiedDate: 2026-06-16 08:28:26:238
+- Title: Network Disconnection / Heart Beat
+- Status: 📝 To Do
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 08:28:42:592
+- dueDate: 2026-06-16 05:30:00:000
+
 #### d442 | Chat
 
 - Id: d442
@@ -116,6 +136,16 @@
 - Status: 📝 To Do
 - Priority: 🟢 Low
 - createdDate: 2026-06-16 01:00:26:921
+- dueDate: 2026-06-16 05:30:00:000
+
+#### e235 | Rejoin Game
+
+- Id: e235
+- lastModifiedDate: 2026-06-16 06:16:32:317
+- Title: Rejoin Game
+- Status: 📝 To Do
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 06:16:38:875
 - dueDate: 2026-06-16 05:30:00:000
 
 ---
