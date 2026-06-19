@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +50,10 @@ public class GameService {
 
     public List<Game> getAvailableGames() {
         return gameRepository.findByStatus(GameStatus.WAITING);
+    }
+
+    public Optional<Game> getInProgressGames(String player) {
+        return gameRepository.findByStatusAndPlayer(GameStatus.IN_PROGRESS, player);
     }
 
     public Game getGame(String gameId) {

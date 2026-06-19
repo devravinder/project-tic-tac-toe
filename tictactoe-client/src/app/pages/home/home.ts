@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { CHAT, PLAY, ROOM, SHIELD, TROPHY } from '../../util/icons';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { PLAYER_NAME } from '../../util/constants';
+import { CHAT, PLAY, ROOM, SHIELD, TROPHY } from '../../util/icons';
 
 @Component({
   selector: 'app-home',
@@ -59,7 +59,7 @@ import { PLAYER_NAME } from '../../util/constants';
     `,
   ],
 })
-export class Home {
+export class Home implements OnInit {
   PLAY = PLAY;
   ROOM = ROOM;
 
@@ -81,6 +81,19 @@ export class Home {
     } else {
       this.router.navigate(['', 'player-name']);
     }
+  }
+
+  navigateToPlayingGame() {
+    const playerName = localStorage.getItem(PLAYER_NAME);
+    if (playerName) {
+      this.gameService.getPlayingGame(playerName).subscribe((game) => {
+        if (game) this.router.navigate(['', 'game', game.id]);
+      });
+    }
+  }
+
+  ngOnInit(): void {
+    this.navigateToPlayingGame();
   }
 }
 export default Home;

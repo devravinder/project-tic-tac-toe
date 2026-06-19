@@ -13,6 +13,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/games")
@@ -49,6 +50,13 @@ public class GameController {
                 .toList();
 
         return ResponseEntity.ok(games);
+    }
+
+    @GetMapping("/in-progress/{player}")
+    public Optional<GameDto> getInProgressGame(@PathVariable String player) {
+        return gameService.getInProgressGames(player)
+                .map(gameService::toDto);
+
     }
 
     @GetMapping("/{gameId}")

@@ -22,6 +22,10 @@ export class GameService {
      return this.http.get<GameDto[]>(`${this.baseUrl}/available`)
   }
 
+  getPlayingGame(playerName: string){
+     return this.http.get<GameDto | null>(`${this.baseUrl}/in-progress/${playerName}`)
+  }
+
   getGame(gameId: string){
     return this.http.get<GameDto>(`${this.baseUrl}/${gameId}`)
   }

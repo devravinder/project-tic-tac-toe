@@ -120,10 +120,6 @@ export class Game implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const gameId = this.game().id;
-    this.gameService.getGame(gameId).subscribe((dto) => {
-      this.game.set(dto);
-    });
-
     this.wsService.watchGame<GameDto>(gameId).subscribe((dto) => {
       this.game.set(dto);
     });

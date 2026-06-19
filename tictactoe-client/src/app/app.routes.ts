@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Layout } from './components/layout/layout';
-import { playerNameGuard } from './guards/player-name.guard';
+import { activeGameGuard, playerNameGuard } from './guards/guard';
 import { gameResolver } from './pages/game/game';
 
 export const routes: Routes = [
@@ -11,6 +11,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate:[activeGameGuard],
         loadComponent: () => import('./pages/home/home'),
       },
       {
@@ -23,6 +24,7 @@ export const routes: Routes = [
       },
       {
         path: 'lobby',
+        canActivate:[activeGameGuard],
         loadComponent: () => import('./pages/lobby/lobby'),
       },
       {
