@@ -12,6 +12,7 @@ public class GameDto {
     private String playerO;
     private String board;
     private GameStatus status;
+    private String requestedBy;
     private String currentTurn;
     private String winner;
     private Instant createdAt;

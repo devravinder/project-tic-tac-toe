@@ -1,21 +1,24 @@
 import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
-import { PLAY, USERS } from '../../util/icons';
+import { PLAY, RESTART, USERS } from '../../util/icons';
 import { GameService } from '../../services/game.service';
 import { GameDto } from '../../types/global';
 import { Router } from '@angular/router';
 import { PLAYER_NAME } from '../../util/constants';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Button } from '../../components/button/button';
 
 @Component({
   selector: 'app-lobby',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Button],
   template: `
     <main class="max-w-7xl mx-auto px-4 w-full flex flex-col gap-8">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
-          <h1 class="text-4xl font-serif font-bold mb-2">Game Lobby</h1>
-
+          <div class="flex flex-row gap-4 items-center">
+            <span class="text-4xl font-serif font-bold mb-2">Game Lobby</span>
+            <app-button (onClick)="fetchGames()" [label]="RESTART" />
+          </div>
           <p class="text-muted-foreground">Join an active session or wait for a challenger.</p>
         </div>
 
@@ -117,13 +120,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class Lobby implements OnInit {
   PLAY = PLAY;
   USERS = USERS;
+  RESTART = RESTART;
 
   router = inject(Router);
   gameService = inject(GameService);
   games = signal<GameDto[]>([]);
 
   searchText = new FormControl('');
-
 
   // refer chat message // this.searchText.getRawValue()
   searchTextSignal = toSignal(this.searchText.valueChanges, {
@@ -167,8 +170,12 @@ export class Lobby implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  fetchGames() {
     this.gameService.getAvailableGames().subscribe((res) => this.games.set(res));
+  }
+
+  ngOnInit(): void {
+    this.fetchGames();
   }
 }
 

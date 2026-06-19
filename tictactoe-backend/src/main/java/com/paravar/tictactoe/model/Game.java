@@ -28,6 +28,9 @@ public class Game {
     private String currentTurn = "X";
     private String winner;
 
+    //
+    private String requestedBy;
+
     // connection tracking
     private int playerXDisconnects = 0;
     private int playerODisconnects = 0;

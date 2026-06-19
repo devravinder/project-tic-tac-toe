@@ -2,7 +2,9 @@ export enum GameStatus {
         WAITING,
         IN_PROGRESS,
         FINISHED,
-        ABANDONED
+        ABANDONED,
+        DRAW_REQUESTED,
+        RESTART_REQUESTED
     }
 
 export interface GameDto {
@@ -11,6 +13,7 @@ export interface GameDto {
   playerO: string;
   board: string;
   status: GameStatus;
+  requestedBy: string
   currentTurn: string;
   winner: string;
   createdAt: Date;

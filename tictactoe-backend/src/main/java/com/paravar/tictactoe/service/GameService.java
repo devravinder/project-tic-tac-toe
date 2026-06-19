@@ -115,19 +115,34 @@ public class GameService {
 
         return gameRepository.save(game);
     }
-    public Game restart(String gameId) {
+    public Game requestDraw(String gameId, String player) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new RuntimeException("Game not found"));
 
-        if (game.getStatus() != GameStatus.FINISHED) {
-            throw new RuntimeException("You can't restart the Game");
+        if (game.getStatus() != GameStatus.IN_PROGRESS) {
+            throw new RuntimeException("Request not allowed");
         }
 
-        game.setStatus(GameStatus.IN_PROGRESS);
-        game.setBoard("         ");
-        game.setWinner(null);
-        game.setPlayerODisconnects(0);
-        game.setPlayerXDisconnects(0);
+
+        game.setStatus(GameStatus.DRAW_REQUESTED);
+        game.setRequestedBy(player);
+
+        return gameRepository.save(game);
+    }
+    public Game acceptDraw(String gameId, String player) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new RuntimeException("Game not found"));
+
+        if (game.getStatus() != GameStatus.DRAW_REQUESTED) {
+            throw new RuntimeException("Draw not allowed");
+        }
+
+        if(player.equals(game.getRequestedBy())){
+            throw new RuntimeException("You can't draw");
+        }
+
+        game.setStatus(GameStatus.FINISHED);
+        game.setWinner("DRAW");
         game.setUpdatedAt(Instant.now());
 
         return gameRepository.save(game);
@@ -155,6 +170,7 @@ public class GameService {
         dto.setStatus(game.getStatus());
         dto.setCurrentTurn(game.getCurrentTurn());
         dto.setWinner(game.getWinner());
+        dto.setRequestedBy(game.getRequestedBy());
         dto.setCreatedAt(game.getCreatedAt());
         dto.setUpdatedAt(game.getUpdatedAt());
         return dto;

@@ -12,3 +12,6 @@ export const FLAG="🏳️"
 export const DRAW="🤝"
 export const CLOSE = "⤫";
 export const RESTART="🗘"
+export const LEAVE="🏃🏻‍♂️‍➡️"
+export const ACCEPT = "👍"
+export const DECLINE = "🙅🏻‍♀️"

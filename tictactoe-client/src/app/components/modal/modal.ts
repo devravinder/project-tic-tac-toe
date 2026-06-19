@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { CLOSE } from '../../util/icons';
 
 @Component({
@@ -11,24 +11,24 @@ import { CLOSE } from '../../util/icons';
       >
         <div
           class="relative flex flex-col justify-start items-center bg-secondary rounded-lg max-w-3xl max-h-[90vh] overflow-y-auto"
-          [class]="fullSize() ? 'w-full h-full':''"
+          [class]="fullSize() ? 'w-full h-full' : ''"
         >
           @if (title()) {
-            <div
-              class="flex items-center justify-between p-6 border-b border-border w-full"
-            >
+            <div class="flex items-center justify-between p-6 border-b border-border w-full">
               <h2 class="text-lg font-semibold">
                 {{ title() }}
               </h2>
             </div>
           }
 
-          <button
-            (click)="onClose.emit()"
-            class="absolute top-4 right-8 px-3 py-1 rounded-full cursor-pointer text-xl text-muted-foreground/80 hover:text-muted-foreground hover:bg-secondary-dark focus:outline-none"
-          >
-            {{ CLOSE }}
-          </button>
+          @if (allowClose()) {
+            <button
+              (click)="onClose.emit()"
+              class="absolute top-4 right-8 px-3 py-1 rounded-full cursor-pointer text-xl text-muted-foreground/80 hover:text-muted-foreground hover:bg-secondary-dark focus:outline-none"
+            >
+              {{ CLOSE }}
+            </button>
+          }
 
           <ng-content />
         </div>
@@ -41,7 +41,12 @@ export class Modal {
   CLOSE = CLOSE;
   title = input<string>();
   isOpen = input.required<boolean>();
-  fullSize = input<boolean>(true)
+  fullSize = input<boolean>(true);
 
   onClose = output();
+
+  allowClose = computed(()=>{
+    return (this.onClose as any)?.listeners?.length > 0;
+  })
+
 }

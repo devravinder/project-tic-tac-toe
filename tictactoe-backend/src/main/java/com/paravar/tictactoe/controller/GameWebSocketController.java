@@ -47,11 +47,23 @@ public class GameWebSocketController {
                 gameService.toDto(game)
         );
     }
+    @MessageMapping("/game/request-draw")
+    public void requestDraw(GameActionRequest request) {
+        Game game = gameService.requestDraw(
+                request.getGameId(),
+                request.getPlayer()
+        );
 
-    @MessageMapping("/game/restart")
-    public void restart(GameActionRequest request) {
-        Game game = gameService.restart(
-                request.getGameId()
+        messagingTemplate.convertAndSend(
+                "/topic/game/" + game.getId(),
+                gameService.toDto(game)
+        );
+    }
+    @MessageMapping("/game/accept-draw")
+    public void acceptDraw(GameActionRequest request) {
+        Game game = gameService.acceptDraw(
+                request.getGameId(),
+                request.getPlayer()
         );
 
         messagingTemplate.convertAndSend(

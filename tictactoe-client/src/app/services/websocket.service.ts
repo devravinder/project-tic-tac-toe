@@ -57,9 +57,15 @@ export class WebsocketService implements OnDestroy {
     });
   }
 
-  restart(gameId: string, player: string) {
+  requestDraw(gameId: string, player: string) {
     this.rxStomp.publish({
-      destination: '/app/game/restart',
+      destination: '/app/game/request-draw',
+      body: JSON.stringify({ gameId, player }),
+    });
+  }
+  acceptDraw(gameId: string, player: string) {
+    this.rxStomp.publish({
+      destination: '/app/game/accept-draw',
       body: JSON.stringify({ gameId, player }),
     });
   }

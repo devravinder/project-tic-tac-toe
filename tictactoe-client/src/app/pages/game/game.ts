@@ -25,9 +25,17 @@ import {
 import { GameDto, GameStatus } from '../../types/global';
 import { catchError, of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { IN_PROGRESS, PLAYER_NAME, PLAYER_O, PLAYER_X } from '../../util/constants';
-import { Modal } from "../../components/modal/modal";
-import { GameStatusCard } from "../../components/game-status-card/game-status-card";
+import {
+  DRAW_REQUESTED,
+  IN_PROGRESS,
+  PLAYER_NAME,
+  PLAYER_O,
+  PLAYER_X,
+  RESIGN,
+  DRAW,
+} from '../../util/constants';
+import { Modal } from '../../components/modal/modal';
+import { GameStatusCard } from '../../components/game-status-card/game-status-card';
 
 export const gameResolver: ResolveFn<GameDto> = (
   route: ActivatedRouteSnapshot,
@@ -48,8 +56,8 @@ export const gameResolver: ResolveFn<GameDto> = (
   imports: [GameBoard, GamePlayers, GameChat, GameActions, Modal, GameStatusCard],
   template: `
     <main class="max-w-7xl px-4 mx-auto w-full h-full flex flex-row justify-between gap-8">
-      <app-modal [isOpen]="isModalOpen()" (onClose)="onModalClose()" [fullSize]="false">
-         <app-game-status-card [data]="game()" />
+      <app-modal [isOpen]="isModalOpen()" [fullSize]="false">
+        <app-game-status-card [data]="game()" (onLeave)="onLeave()" (onAccept)="onAccept()" (onDecline)="onDecline()" />
       </app-modal>
       <div class="flex-1 flex flex-col gap-8 max-w-sm">
         <app-game-players
@@ -62,7 +70,11 @@ export const gameResolver: ResolveFn<GameDto> = (
           [squares]="squares()"
           (onSqaureClick)="onSqaureClick($event)"
         />
-        <app-game-actions [data]="game()" (onResign)="onResign()" (onRestart)="onRestart()" />
+        <app-game-actions [actions]="actions" 
+        (onResign)="onResign()"
+        (onDraw)="onDraw()"
+        
+         />
       </div>
       <div class="w-sm">
         <app-game-chat [gameId]="game().id" />
@@ -83,6 +95,8 @@ export class Game implements OnInit, OnDestroy {
   router = inject(Router);
   private route = inject(ActivatedRoute);
 
+  actions = [RESIGN, DRAW];
+
   playerName = computed(() => localStorage.getItem(PLAYER_NAME)!);
   xIsNext = signal(true);
 
@@ -98,24 +112,31 @@ export class Game implements OnInit, OnDestroy {
     () => this.game().status !== (IN_PROGRESS as unknown as GameStatus) || !this.isMyTurn(),
   );
 
+  squares = computed(() => this.game().board.split(''));
+
+  isModalOpen = computed(() => this.game().status !== (IN_PROGRESS as unknown as GameStatus));
+
+  // actions
+
   onSqaureClick(index: number) {
     this.wsService.move(this.game().id, this.playerName(), index);
   }
 
-  squares = computed(() => this.game().board.split(''));
-
-  modalSwitch = signal(true)
-  isModalOpen = computed(()=> this.modalSwitch() && this.game().status !== IN_PROGRESS as unknown as GameStatus)
-  onModalClose=()=>{
-    this.modalSwitch.set(false)
+  onDecline() {
+    this.router.navigate(['']);
+  }
+  onLeave() {
+    this.router.navigate(['']);
   }
 
-  onResign(){
-    this.wsService.resign(this.game().id, this.playerName())
+  onResign() {
+    this.wsService.resign(this.game().id, this.playerName());
   }
-  onRestart(){
-    this.wsService.restart(this.game().id, this.playerName())
-    this.modalSwitch.set(true)
+  onDraw() {
+    this.wsService.requestDraw(this.game().id, this.playerName());
+  }
+  onAccept() {
+    this.wsService.acceptDraw(this.game().id, this.playerName());
   }
 
   ngOnInit(): void {
@@ -123,10 +144,6 @@ export class Game implements OnInit, OnDestroy {
     this.wsService.watchGame<GameDto>(gameId).subscribe((dto) => {
       this.game.set(dto);
     });
-  }
-
-  constructor() {
-    effect(() => {});
   }
 
   ngOnDestroy(): void {}
