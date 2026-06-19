@@ -11,3 +11,4 @@ export const O="𝐎"
 export const FLAG="🏳️"
 export const DRAW="🤝"
 export const CLOSE = "⤫";
+export const RESTART="🗘"

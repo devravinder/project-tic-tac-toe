@@ -74,17 +74,37 @@
 
 ## 📋 Tasks
 
-### 📝 To Do
+### 🚀 In Progress
 
 #### a52e | Show Waiting Game animation
 
 - Id: a52e
-- lastModifiedDate: 2026-06-16 06:16:19:796
+- lastModifiedDate: 2026-06-19 10:56:45:412
 - Title: Show Waiting Game animation
-- Status: 📝 To Do
+- Status: 🚀 In Progress
 - Priority: 🟢 Low
 - createdDate: 2026-06-16 06:16:30:153
 - dueDate: 2026-06-16 05:30:00:000
+- startedDate: 2026-06-19 10:56:45:412
+
+#### 7e44 | Win Detection
+
+- Id: 7e44
+- lastModifiedDate: 2026-06-19 10:56:31:906
+- Title: Win Detection
+- Status: 🚀 In Progress
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 12:59:45:331
+- dueDate: 2026-06-16 05:30:00:000
+- startedDate: 2026-06-19 10:56:31:906
+
+##### Tags
+
+- #backend
+- #ui
+- #feature
+
+### 📝 To Do
 
 #### 165b | Resign & Draw
 
@@ -102,22 +122,6 @@
 - #feature
 - #ui
 
-#### 7e44 | Win Detection
-
-- Id: 7e44
-- lastModifiedDate: 2026-06-16 12:59:33:199
-- Title: Win Detection
-- Status: 📝 To Do
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 12:59:45:331
-- dueDate: 2026-06-16 05:30:00:000
-
-##### Tags
-
-- #backend
-- #ui
-- #feature
-
 #### 31bb | Network Disconnection / Heart Beat
 
 - Id: 31bb
@@ -128,16 +132,6 @@
 - createdDate: 2026-06-16 08:28:42:592
 - dueDate: 2026-06-16 05:30:00:000
 
-#### d442 | Chat
-
-- Id: d442
-- lastModifiedDate: 2026-06-16 01:00:22:701
-- Title: Chat
-- Status: 📝 To Do
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 01:00:26:921
-- dueDate: 2026-06-16 05:30:00:000
-
 #### e235 | Rejoin Game
 
 - Id: e235
@@ -146,6 +140,16 @@
 - Status: 📝 To Do
 - Priority: 🟢 Low
 - createdDate: 2026-06-16 06:16:38:875
+- dueDate: 2026-06-16 05:30:00:000
+
+#### d442 | Chat
+
+- Id: d442
+- lastModifiedDate: 2026-06-16 01:00:22:701
+- Title: Chat
+- Status: 📝 To Do
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 01:00:26:921
 - dueDate: 2026-06-16 05:30:00:000
 
 ---

@@ -26,6 +26,8 @@ import { GameDto, GameStatus } from '../../types/global';
 import { catchError, of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { IN_PROGRESS, PLAYER_NAME, PLAYER_O, PLAYER_X } from '../../util/constants';
+import { Modal } from "../../components/modal/modal";
+import { GameStatusCard } from "../../components/game-status-card/game-status-card";
 
 export const gameResolver: ResolveFn<GameDto> = (
   route: ActivatedRouteSnapshot,
@@ -43,9 +45,12 @@ export const gameResolver: ResolveFn<GameDto> = (
 
 @Component({
   selector: 'app-game',
-  imports: [GameBoard, GamePlayers, GameChat, GameActions],
+  imports: [GameBoard, GamePlayers, GameChat, GameActions, Modal, GameStatusCard],
   template: `
     <main class="max-w-7xl px-4 mx-auto w-full flex flex-row justify-between gap-8">
+      <app-modal [isOpen]="isModalOpen()" (onClose)="onModalClose()" [fullSize]="false">
+         <app-game-status-card [data]="game()" />
+      </app-modal>
       <div class="flex-1 flex flex-col gap-8 max-w-sm">
         <app-game-players
           [currentTurn]="game().currentTurn"
@@ -57,7 +62,7 @@ export const gameResolver: ResolveFn<GameDto> = (
           [squares]="squares()"
           (onSqaureClick)="onSqaureClick($event)"
         />
-        <app-game-actions />
+        <app-game-actions [data]="game()" (onResign)="onResign()" (onRestart)="onRestart()" />
       </div>
       <div class="w-sm">
         <app-game-chat />
@@ -98,6 +103,20 @@ export class Game implements OnInit, OnDestroy {
   }
 
   squares = computed(() => this.game().board.split(''));
+
+  modalSwitch = signal(true)
+  isModalOpen = computed(()=> this.modalSwitch() && this.game().status !== IN_PROGRESS as unknown as GameStatus)
+  onModalClose=()=>{
+    this.modalSwitch.set(false)
+  }
+
+  onResign(){
+    this.wsService.resign(this.game().id, this.playerName())
+  }
+  onRestart(){
+    this.wsService.restart(this.game().id, this.playerName())
+    this.modalSwitch.set(true)
+  }
 
   ngOnInit(): void {
     const gameId = this.game().id;

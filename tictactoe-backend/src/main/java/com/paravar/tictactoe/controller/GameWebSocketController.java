@@ -48,6 +48,18 @@ public class GameWebSocketController {
         );
     }
 
+    @MessageMapping("/game/restart")
+    public void restart(GameActionRequest request) {
+        Game game = gameService.restart(
+                request.getGameId()
+        );
+
+        messagingTemplate.convertAndSend(
+                "/topic/game/" + game.getId(),
+                gameService.toDto(game)
+        );
+    }
+
     @MessageMapping("/game/heartbeat")
     public void heartbeat(HeartBeatRequest request) {
         gameService.heartbeat(

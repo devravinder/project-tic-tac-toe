@@ -101,7 +101,25 @@ public class GameService {
 
         String symbol = getPlayerSymbol(game, player);
         game.setWinner(symbol.equals("X") ? game.getPlayerO() : game.getPlayerX());
+        game.setCurrentTurn(symbol);
         game.setStatus(GameStatus.FINISHED);
+        game.setUpdatedAt(Instant.now());
+
+        return gameRepository.save(game);
+    }
+    public Game restart(String gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new RuntimeException("Game not found"));
+
+        if (game.getStatus() != GameStatus.FINISHED) {
+            throw new RuntimeException("You can't restart the Game");
+        }
+
+        game.setStatus(GameStatus.IN_PROGRESS);
+        game.setBoard("         ");
+        game.setWinner(null);
+        game.setPlayerODisconnects(0);
+        game.setPlayerXDisconnects(0);
         game.setUpdatedAt(Instant.now());
 
         return gameRepository.save(game);
