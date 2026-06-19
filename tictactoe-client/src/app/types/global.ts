@@ -16,3 +16,11 @@ export interface GameDto {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ChatMessageDto {
+  id: string;
+  gameId: string;
+  sender: string;
+  content: string;
+  timestamp: string;
+}

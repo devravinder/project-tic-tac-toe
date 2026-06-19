@@ -1,8 +1,10 @@
 package com.paravar.tictactoe.service;
 
 import com.paravar.tictactoe.dto.GameDto;
+import com.paravar.tictactoe.model.ChatMessage;
 import com.paravar.tictactoe.model.Game;
 import com.paravar.tictactoe.model.GameStatus;
+import com.paravar.tictactoe.repository.ChatMessageRepository;
 import com.paravar.tictactoe.repository.GameRepository;
 import com.paravar.tictactoe.util.AppConstants;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final ChatMessageRepository chatMessageRepository;
 
     private static final int[][] WIN_PATTERNS = {
             {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, // rows
@@ -168,4 +171,9 @@ public class GameService {
         }
         return null;
     }
+
+    public List<ChatMessage> getChatMessages(String gameId){
+        return chatMessageRepository.findByGameIdOrderByTimestampAsc(gameId);
+    }
+
 }

@@ -74,35 +74,48 @@
 
 ## 📋 Tasks
 
-### 🚀 In Progress
-
-#### a52e | Show Waiting Game animation
-
-- Id: a52e
-- lastModifiedDate: 2026-06-19 10:56:45:412
-- Title: Show Waiting Game animation
-- Status: 🚀 In Progress
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 06:16:30:153
-- dueDate: 2026-06-16 05:30:00:000
-- startedDate: 2026-06-19 10:56:45:412
+### ✅ Done
 
 #### 7e44 | Win Detection
 
 - Id: 7e44
-- lastModifiedDate: 2026-06-19 10:56:31:906
+- lastModifiedDate: 2026-06-19 01:14:53:398
 - Title: Win Detection
-- Status: 🚀 In Progress
+- Status: ✅ Done
 - Priority: 🟢 Low
 - createdDate: 2026-06-16 12:59:45:331
 - dueDate: 2026-06-16 05:30:00:000
 - startedDate: 2026-06-19 10:56:31:906
+- completedDate: 2026-06-19 01:14:53:398
 
 ##### Tags
 
 - #backend
 - #ui
 - #feature
+
+#### a52e | Show Waiting Game animation
+
+- Id: a52e
+- lastModifiedDate: 2026-06-19 01:14:51:747
+- Title: Show Waiting Game animation
+- Status: ✅ Done
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 06:16:30:153
+- dueDate: 2026-06-16 05:30:00:000
+- startedDate: 2026-06-19 10:56:45:412
+- completedDate: 2026-06-19 01:14:51:747
+
+#### d442 | Chat
+
+- Id: d442
+- lastModifiedDate: 2026-06-19 01:15:20:357
+- Title: Chat
+- Status: ✅ Done
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 01:00:26:921
+- dueDate: 2026-06-16 05:30:00:000
+- completedDate: 2026-06-19 01:15:20:357
 
 ### 📝 To Do
 
@@ -140,16 +153,6 @@
 - Status: 📝 To Do
 - Priority: 🟢 Low
 - createdDate: 2026-06-16 06:16:38:875
-- dueDate: 2026-06-16 05:30:00:000
-
-#### d442 | Chat
-
-- Id: d442
-- lastModifiedDate: 2026-06-16 01:00:22:701
-- Title: Chat
-- Status: 📝 To Do
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 01:00:26:921
 - dueDate: 2026-06-16 05:30:00:000
 
 ---

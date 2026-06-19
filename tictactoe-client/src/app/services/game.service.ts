@@ -1,5 +1,5 @@
 import { inject, Service } from '@angular/core';
-import { GameDto } from '../types/global';
+import { ChatMessageDto, GameDto } from '../types/global';
 import { HttpClient } from '@angular/common/http';
 
 @Service()
@@ -24,6 +24,10 @@ export class GameService {
 
   getGame(gameId: string){
     return this.http.get<GameDto>(`${this.baseUrl}/${gameId}`)
+  }
+
+  getChatMessages(gameId: string){
+     return this.http.get<ChatMessageDto[]>(`${this.baseUrl}/${gameId}/chat`)
   }
 
 }

@@ -47,7 +47,7 @@ export const gameResolver: ResolveFn<GameDto> = (
   selector: 'app-game',
   imports: [GameBoard, GamePlayers, GameChat, GameActions, Modal, GameStatusCard],
   template: `
-    <main class="max-w-7xl px-4 mx-auto w-full flex flex-row justify-between gap-8">
+    <main class="max-w-7xl px-4 mx-auto w-full h-full flex flex-row justify-between gap-8">
       <app-modal [isOpen]="isModalOpen()" (onClose)="onModalClose()" [fullSize]="false">
          <app-game-status-card [data]="game()" />
       </app-modal>
@@ -65,7 +65,7 @@ export const gameResolver: ResolveFn<GameDto> = (
         <app-game-actions [data]="game()" (onResign)="onResign()" (onRestart)="onRestart()" />
       </div>
       <div class="w-sm">
-        <app-game-chat />
+        <app-game-chat [gameId]="game().id" />
       </div>
     </main>
   `,

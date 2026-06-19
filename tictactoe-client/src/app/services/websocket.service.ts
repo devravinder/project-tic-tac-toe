@@ -37,10 +37,10 @@ export class WebsocketService implements OnDestroy {
       .pipe(map((message) => JSON.parse(message.body) as GameDto));
   }
 
-  watchGameChat<T>(gameId: string) {
+  watchGameChat<ChatMessageDto>(gameId: string) {
     return this.rxStomp
       .watch(`/topic/chat/${gameId}`)
-      .pipe(map((message) => JSON.parse(message.body) as T));
+      .pipe(map((message) => JSON.parse(message.body) as ChatMessageDto));
   }
 
   move(gameId: string, player: string, position: number) {

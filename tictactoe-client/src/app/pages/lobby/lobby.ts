@@ -124,6 +124,8 @@ export class Lobby implements OnInit {
 
   searchText = new FormControl('');
 
+
+  // refer chat message // this.searchText.getRawValue()
   searchTextSignal = toSignal(this.searchText.valueChanges, {
     initialValue: this.searchText.value,
   });

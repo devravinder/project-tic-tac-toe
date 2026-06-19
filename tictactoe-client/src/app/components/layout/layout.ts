@@ -7,8 +7,8 @@ import { RouterOutlet } from '@angular/router';
   imports: [Header, RouterOutlet],
   template: `
   <div class="w-full h-screen flex flex-col">
-      <app-header class="w-full border-b shadow border-border px-4 py-3" />
-      <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col py-8">
+      <app-header class="w-full shrink-0 border-b shadow border-border px-4 py-3" />
+      <main class="w-full max-w-7xl mx-auto flex-1 flex flex-col py-8 min-h-0 overflow-auto">
           <router-outlet class="hidden" />
       </main>
     </div>
