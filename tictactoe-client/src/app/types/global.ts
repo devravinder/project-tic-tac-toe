@@ -15,6 +15,8 @@ export interface GameDto {
   status: GameStatus;
   requestedBy: string
   currentTurn: string;
+  playerXDisconnects: number;
+  playerODisconnects: number;
   winner: string;
   createdAt: Date;
   updatedAt: Date;

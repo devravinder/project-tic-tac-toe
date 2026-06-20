@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { GameService } from '../../services/game.service';
-import { PLAYER_O, PLAYER_X } from '../../util/constants';
+import { CONNECTION_MAP, PLAYER_O, PLAYER_X } from '../../util/constants';
 
 @Component({
   selector: 'app-game-players',
@@ -18,7 +18,10 @@ import { PLAYER_O, PLAYER_X } from '../../util/constants';
         </div>
         <div>
           <p class="text-xs text-muted-foreground font-medium">Player 1</p>
-          <p class="font-bold">{{ playerX() }}</p>
+          <p class="font-bold flex flex-row gap-1">
+            <span>{{ playerX() }}</span>
+            <span>{{ CONNECTION_MAP[playerXDisconnects()] }}</span>
+          </p>
         </div>
       </div>
 
@@ -32,7 +35,10 @@ import { PLAYER_O, PLAYER_X } from '../../util/constants';
       >
         <div class="text-right">
           <p class="text-xs text-muted-foreground font-medium">Player 2</p>
-          <p class="font-bold">{{ playerO() }}</p>
+          <p class="font-bold flex flex-row gap-1">
+            <span>{{ CONNECTION_MAP[playerODisconnects()] }}</span>
+            <span>{{ playerO() }}</span>
+          </p>
         </div>
 
         <div
@@ -55,6 +61,10 @@ export class GamePlayers {
   currentTurn = input.required<string>();
   playerX = input.required<string>();
   playerO = input.required<string>();
+  playerXDisconnects = input.required<number>()
+  playerODisconnects = input.required<number>()
+
   PLAYER_O = PLAYER_O;
   PLAYER_X = PLAYER_X;
+  CONNECTION_MAP = CONNECTION_MAP
 }

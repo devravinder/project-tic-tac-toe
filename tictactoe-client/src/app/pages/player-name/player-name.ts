@@ -32,7 +32,7 @@ export class PlayerName {
   }
 
   onContinue(data:PlayerDetails){
-    localStorage.setItem(PLAYER_NAME, data.name)
+    localStorage.setItem(PLAYER_NAME, data.name.substring(0,8))
     const url = this.route.snapshot.queryParamMap.get('url');
     this.router.navigateByUrl(url || "/")
 

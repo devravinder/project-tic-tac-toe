@@ -13,12 +13,12 @@ spring:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 
 
 game:
   idle-timeout-minutes: 5
-  disconnect-timeout-seconds: 30
-  disconnect-strike-seconds: 10
+  disconnect-timeout-seconds: 45
+  disconnect-strike-seconds: 15
   max-disconnect-strikes: 3
 

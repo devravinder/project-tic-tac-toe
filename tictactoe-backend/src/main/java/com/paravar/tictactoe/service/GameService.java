@@ -1,5 +1,6 @@
 package com.paravar.tictactoe.service;
 
+import com.paravar.tictactoe.config.GameProperties;
 import com.paravar.tictactoe.dto.GameDto;
 import com.paravar.tictactoe.model.ChatMessage;
 import com.paravar.tictactoe.model.Game;
@@ -9,6 +10,8 @@ import com.paravar.tictactoe.repository.GameRepository;
 import com.paravar.tictactoe.util.AppConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +22,8 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final ChatMessageRepository chatMessageRepository;
+    private final GameProperties gameProperties;
+
 
     private static final int[][] WIN_PATTERNS = {
             {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, // rows
@@ -44,6 +49,7 @@ public class GameService {
         game.setStatus(GameStatus.IN_PROGRESS);
         game.setPlayerO(playerName);
         game.setPlayerOLastSeen(Instant.now());
+        game.setPlayerXLastSeen(Instant.now()); // keep both last seen same on game start
         game.setUpdatedAt(Instant.now());
         return gameRepository.save(game);
     }
@@ -148,17 +154,70 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public void heartbeat(String gameId, String player) {
+    public Game  heartbeat(String gameId, String player) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new RuntimeException("Game not found"));
-
-        if (player.equals(game.getPlayerX())) {
+        boolean isPlayerX = player.equals(game.getPlayerX());
+       String otherPlayer = isPlayerX ? game.getPlayerO() : game.getPlayerX();
+        if (isPlayerX) {
             game.setPlayerXLastSeen(Instant.now());
         } else if (player.equals(game.getPlayerO())) {
             game.setPlayerOLastSeen(Instant.now());
         }
 
-        gameRepository.save(game);
+        updateGameOnOtherPlayerHeartbeat(game, otherPlayer);
+
+        return gameRepository.save(game);
+    }
+
+    private void updateGameOnOtherPlayerHeartbeat(Game game, String player){
+        Instant now = Instant.now();
+
+        boolean isPlayerX = player.equals(game.getPlayerX());
+
+        Instant lastSeen = isPlayerX
+                ? game.getPlayerXLastSeen()
+                : game.getPlayerOLastSeen();
+
+        long secondsSinceLastSeen =  Duration.between(lastSeen, now).getSeconds();
+
+
+        if (secondsSinceLastSeen >= gameProperties.getDisconnectTimeoutSeconds()) {
+
+            game.setWinner(
+                    isPlayerX
+                            ? game.getPlayerO()
+                            : game.getPlayerX()
+            );
+
+            game.setStatus(GameStatus.FINISHED);
+
+            return;
+        }
+
+        if (secondsSinceLastSeen >= gameProperties.getDisconnectStrikeSeconds()) {
+
+            int strikes = isPlayerX
+                    ? game.getPlayerXDisconnects()
+                    : game.getPlayerODisconnects();
+
+            if (isPlayerX) {
+                game.setPlayerXDisconnects(strikes + 1);
+
+                if(game.getPlayerXDisconnects() == gameProperties.getMaxDisconnectStrikes()){
+                    game.setStatus(GameStatus.FINISHED);
+                    game.setWinner(game.getPlayerO());
+                }
+
+            } else {
+                game.setPlayerODisconnects(strikes + 1);
+
+                if(game.getPlayerODisconnects() == gameProperties.getMaxDisconnectStrikes()){
+                    game.setStatus(GameStatus.FINISHED);
+                    game.setWinner(game.getPlayerX());
+                }
+            }
+        }
     }
 
     public GameDto toDto(Game game) {
@@ -171,6 +230,8 @@ public class GameService {
         dto.setCurrentTurn(game.getCurrentTurn());
         dto.setWinner(game.getWinner());
         dto.setRequestedBy(game.getRequestedBy());
+        dto.setPlayerXDisconnects(game.getPlayerXDisconnects());
+        dto.setPlayerODisconnects(game.getPlayerODisconnects());
         dto.setCreatedAt(game.getCreatedAt());
         dto.setUpdatedAt(game.getUpdatedAt());
         return dto;

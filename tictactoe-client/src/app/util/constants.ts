@@ -15,3 +15,13 @@ export const RESIGN = "RESIGN"
 export const LEAVE = "LEAVE"
 export const ACCEPT = "ACCEPT"
 export const DECLINE = "DECLINE"
+
+export const HEARTBEAT_TIMER = 10000
+
+
+export const CONNECTION_MAP : Record<number, string> = {
+    0: '🟢',
+    1: '🟡',
+    2: '🟠',
+    3: '🔴'
+}

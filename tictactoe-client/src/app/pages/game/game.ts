@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  effect,
   inject,
   linkedSignal,
   OnDestroy,
@@ -33,6 +32,7 @@ import {
   PLAYER_X,
   RESIGN,
   DRAW,
+  HEARTBEAT_TIMER,
 } from '../../util/constants';
 import { Modal } from '../../components/modal/modal';
 import { GameStatusCard } from '../../components/game-status-card/game-status-card';
@@ -64,6 +64,8 @@ export const gameResolver: ResolveFn<GameDto> = (
           [currentTurn]="game().currentTurn"
           [playerX]="game().playerX"
           [playerO]="game().playerO"
+          [playerXDisconnects]="game().playerXDisconnects"
+          [playerODisconnects]="game().playerODisconnects"
         />
         <app-game-board
           [disabled]="disabled()"
@@ -139,13 +141,33 @@ export class Game implements OnInit, OnDestroy {
     this.wsService.acceptDraw(this.game().id, this.playerName());
   }
 
+  private heartbeatIntervalId?: any;
+
   ngOnInit(): void {
     const gameId = this.game().id;
     this.wsService.watchGame<GameDto>(gameId).subscribe((dto) => {
       this.game.set(dto);
     });
+    this.startHeartbeat();
   }
 
-  ngOnDestroy(): void {}
+  startHeartbeat() {
+    this.heartbeatIntervalId = setInterval(() => {
+      const status = this.game().status as unknown as string;
+      if (status === IN_PROGRESS || status === DRAW_REQUESTED) {
+        this.sendHeartbeat();
+      }
+    }, HEARTBEAT_TIMER);
+  }
+
+  sendHeartbeat() {
+    this.wsService.heartbeat(this.game().id, this.playerName());
+  }
+
+  ngOnDestroy(): void {
+    if (this.heartbeatIntervalId) {
+      clearInterval(this.heartbeatIntervalId);
+    }
+  }
 }
 export default Game;

@@ -12,6 +12,8 @@ public class GameDto {
     private String playerO;
     private String board;
     private GameStatus status;
+    private int playerXDisconnects;
+    private int playerODisconnects;
     private String requestedBy;
     private String currentTurn;
     private String winner;

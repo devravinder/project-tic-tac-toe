@@ -76,6 +76,45 @@
 
 ### ✅ Done
 
+#### e235 | Rejoin Game
+
+- Id: e235
+- lastModifiedDate: 2026-06-20 12:16:50:775
+- Title: Rejoin Game
+- Status: ✅ Done
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 06:16:38:875
+- dueDate: 2026-06-16 05:30:00:000
+- completedDate: 2026-06-20 12:16:50:775
+
+#### 165b | Resign & Draw
+
+- Id: 165b
+- lastModifiedDate: 2026-06-20 12:16:45:278
+- Title: Resign & Draw
+- Status: ✅ Done
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 01:00:05:074
+- dueDate: 2026-06-16 05:30:00:000
+- completedDate: 2026-06-20 12:16:45:277
+
+##### Tags
+
+- #backend
+- #feature
+- #ui
+
+#### d442 | Chat
+
+- Id: d442
+- lastModifiedDate: 2026-06-19 01:15:20:357
+- Title: Chat
+- Status: ✅ Done
+- Priority: 🟢 Low
+- createdDate: 2026-06-16 01:00:26:921
+- dueDate: 2026-06-16 05:30:00:000
+- completedDate: 2026-06-19 01:15:20:357
+
 #### 7e44 | Win Detection
 
 - Id: 7e44
@@ -106,54 +145,16 @@
 - startedDate: 2026-06-19 10:56:45:412
 - completedDate: 2026-06-19 01:14:51:747
 
-#### d442 | Chat
-
-- Id: d442
-- lastModifiedDate: 2026-06-19 01:15:20:357
-- Title: Chat
-- Status: ✅ Done
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 01:00:26:921
-- dueDate: 2026-06-16 05:30:00:000
-- completedDate: 2026-06-19 01:15:20:357
-
-### 📝 To Do
-
-#### 165b | Resign & Draw
-
-- Id: 165b
-- lastModifiedDate: 2026-06-16 12:59:48:409
-- Title: Resign & Draw
-- Status: 📝 To Do
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 01:00:05:074
-- dueDate: 2026-06-16 05:30:00:000
-
-##### Tags
-
-- #backend
-- #feature
-- #ui
-
 #### 31bb | Network Disconnection / Heart Beat
 
 - Id: 31bb
-- lastModifiedDate: 2026-06-16 08:28:26:238
+- lastModifiedDate: 2026-06-20 07:16:07:662
 - Title: Network Disconnection / Heart Beat
-- Status: 📝 To Do
+- Status: ✅ Done
 - Priority: 🟢 Low
 - createdDate: 2026-06-16 08:28:42:592
 - dueDate: 2026-06-16 05:30:00:000
-
-#### e235 | Rejoin Game
-
-- Id: e235
-- lastModifiedDate: 2026-06-16 06:16:32:317
-- Title: Rejoin Game
-- Status: 📝 To Do
-- Priority: 🟢 Low
-- createdDate: 2026-06-16 06:16:38:875
-- dueDate: 2026-06-16 05:30:00:000
+- completedDate: 2026-06-20 07:16:07:662
 
 ---
 To view this file in Kanban dashboard open this file(file parent folder) with [Task Manager](https://todo.paravartech.com/)

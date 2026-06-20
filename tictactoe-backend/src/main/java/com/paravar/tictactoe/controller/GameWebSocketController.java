@@ -74,9 +74,14 @@ public class GameWebSocketController {
 
     @MessageMapping("/game/heartbeat")
     public void heartbeat(HeartBeatRequest request) {
-        gameService.heartbeat(
+        Game game  = gameService.heartbeat(
                 request.getGameId(),
                 request.getPlayer()
+        );
+
+        messagingTemplate.convertAndSend(
+                "/topic/game/" + game.getId(),
+                gameService.toDto(game)
         );
     }
 
